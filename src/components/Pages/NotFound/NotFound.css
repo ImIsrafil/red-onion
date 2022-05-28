@@ -1,0 +1,6 @@
+.background-notfound {
+    background-image: url('../../../images/404-gif.gif');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

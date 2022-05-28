@@ -6,7 +6,6 @@ import HomeBanner from '../../HomeBanner/HomeBanner'
 const Home = () => {
   return (
     <>
-        <Header></Header>
         <HomeBanner></HomeBanner>
         <Foods></Foods>
     </>

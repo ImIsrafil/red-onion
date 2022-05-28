@@ -71,7 +71,7 @@ const FoodReview = () => {
         </button>
       </div>
       <div className='max-w-md'>
-        <img src={food?.img} alt="" />
+        <img className='w-full' src={food?.img} alt="" />
       </div>
     </div>
   )
