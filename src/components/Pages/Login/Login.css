@@ -1,6 +1,6 @@
 .background-login {
     background-image: url('../../../images/bannerbackground.png');
     background-position: bottom;
-    background-size: 112vw 100vh;
+    background-size: 112vw cover;
     background-repeat: no-repeat;
 }

@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom';
-import useAppContext from '../../../hooks/useAppContext';
-import {BsCart2} from 'react-icons/bs';
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import useAppContext from "../../../hooks/useAppContext";
+import { BsCart2 } from "react-icons/bs";
 
 const FoodReview = () => {
   const [food, setFood] = useState({});
   const [foodQuantity, setFoodQuantity] = useState(1);
-  const {foods, setDataToDB, cart, setCart} = useAppContext();
+  const { foods, setDataToDB, cart, setCart } = useAppContext();
   const location = useLocation();
-  const {foodId} = useParams();
+  const { foodId } = useParams();
   useEffect(() => {
-    if(location.pathname.includes('breakfast')) {
-      if(foods.breakfast?.length) {
-        const findedFood = foods.breakfast.find(item => item.id === foodId);
+    if (location.pathname.includes("breakfast")) {
+      if (foods.breakfast?.length) {
+        const findedFood = foods.breakfast.find((item) => item.id === foodId);
         setFood(findedFood);
       } else {
-        setFood({})
+        setFood({});
       }
-    } else if (location.pathname.includes('lunch')) {
-      if(foods.lunch?.length) {
-        const findedFood = foods.lunch.find(item => item.id === foodId);
+    } else if (location.pathname.includes("lunch")) {
+      if (foods.lunch?.length) {
+        const findedFood = foods.lunch.find((item) => item.id === foodId);
         setFood(findedFood);
       } else {
-        setFood({})
+        setFood({});
       }
-    } else if (location.pathname.includes('dinner')) {
+    } else if (location.pathname.includes("dinner")) {
       if (foods.dinner?.length) {
-        const findedFood = foods.dinner.find(item => item.id === foodId);
+        const findedFood = foods.dinner.find((item) => item.id === foodId);
         setFood(findedFood);
       } else {
         setFood({});
@@ -35,64 +35,71 @@ const FoodReview = () => {
   }, [foods]);
 
   const minusFoodQuantity = () => {
-    if(foodQuantity !== 1 && foodQuantity > 1) {
+    if (foodQuantity !== 1 && foodQuantity > 1) {
       setFoodQuantity(foodQuantity - 1);
     }
-  }
+  };
 
   const plusFoodQuantity = () => {
-    if(foodQuantity < 20) {
+    if (foodQuantity < 20) {
       setFoodQuantity(foodQuantity + 1);
     }
-  }
+  };
 
   const handleAddToCart = (food) => {
     let foodId = food.id;
     let quantity = foodQuantity;
     let sendFood = {};
     sendFood["foodId"] = foodId;
-    sendFood['quantity'] = quantity;
+    sendFood["quantity"] = quantity;
     let existCart = cart || {};
-    if(existCart[foodId]) {
-        let newCount = existCart[foodId] + quantity;
-        existCart[foodId] = newCount;
-        setCart(existCart);
+    if (existCart[foodId]) {
+      let newCount = existCart[foodId] + quantity;
+      existCart[foodId] = newCount;
+      setCart(existCart);
     } else {
       existCart[foodId] = quantity;
-      setCart({...cart, ...existCart});
+      setCart({ ...cart, ...existCart });
     }
     setDataToDB(sendFood);
-  }
+  };
 
   console.log(cart);
 
-
-
-
   return (
-    <div className='max-w-screen-2xl m-auto flex justify-center items-center gap-14 p-10 flex-wrap'>
-      <div className='max-w-md'>
-        <h1 className='text-5xl mb-10 text-slate-800 font-semibold'>{food?.name}</h1>
-        <p className='text-base leading-7'>{food?.desc}</p>
-        <div className='my-5 flex items-center gap-4'>
-          <span className='block text-2xl font-bold text-slate-900'>${food?.price}</span>
-          <div className='bg-gray-200 rounded-[30px]'>
-            <button onClick={minusFoodQuantity} className='text-3xl p-3'>-</button>
-            <span className='text-3xl p-3'>{foodQuantity}</span>
-            <button onClick={plusFoodQuantity} className='text-3xl p-3'>+</button>
+    <div className="max-w-screen-2xl m-auto flex justify-center items-center gap-14 p-10 flex-wrap">
+      <div className="max-w-md">
+        <h1 className="text-5xl mb-10 text-slate-800 font-semibold">
+          {food?.name}
+        </h1>
+        <p className="text-base leading-7">{food?.desc}</p>
+        <div className="my-5 flex items-center gap-4">
+          <span className="block text-2xl font-bold text-slate-900">
+            ${food?.price}
+          </span>
+          <div className="bg-gray-200 rounded-[30px]">
+            <button onClick={minusFoodQuantity} className="text-3xl p-3">
+              -
+            </button>
+            <span className="text-3xl p-3">{foodQuantity}</span>
+            <button onClick={plusFoodQuantity} className="text-3xl p-3">
+              +
+            </button>
           </div>
         </div>
-        <button onClick={() => handleAddToCart(food||{})} className='bg-red-700 text-white px-6 py-3 text-xl flex items-center rounded-[30px]'>
-          <BsCart2 className='inline mr-2'></BsCart2>
+        <button
+          onClick={() => handleAddToCart(food || {})}
+          className="bg-red-700 text-white px-6 py-3 text-xl flex items-center rounded-[30px]"
+        >
+          <BsCart2 className="inline mr-2"></BsCart2>
           <span>Add</span>
         </button>
       </div>
-      <div className='max-w-md'>
-        <img className='w-full' src={food?.img} alt="" />
+      <div className="max-w-md">
+        <img className="w-full" src={food?.img} alt="" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FoodReview
-
+export default FoodReview;

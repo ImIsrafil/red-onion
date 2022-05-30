@@ -1,16 +1,19 @@
-import React from 'react'
-import useAppContext from '../../hooks/useAppContext'
-import BreakfastFood from './BreakfastFood.js/BreakfastFood';
+import React from "react";
+import useAppContext from "../../hooks/useAppContext";
+import BreakfastFood from "./BreakfastFood.js/BreakfastFood";
 
 const Breakfast = () => {
-  const {foods} = useAppContext();
+  const { foods } = useAppContext();
   return (
-    <div className='grid grid-cols-3'>
-      {
-          foods.breakfast?.map((breakfastFood) => <BreakfastFood breakfastFood={breakfastFood} key={breakfastFood.id}></BreakfastFood>)
-      }
+    <div className="grid grid-cols-3">
+      {foods.breakfast?.map((breakfastFood) => (
+        <BreakfastFood
+          breakfastFood={breakfastFood}
+          key={breakfastFood.id}
+        ></BreakfastFood>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Breakfast
+export default Breakfast;
