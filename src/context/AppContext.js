@@ -1,4 +1,5 @@
 import React, { createContext, useEffect } from 'react'
+import useFirebase from '../hooks/useFirebase';
 import { setDataToDB, deleteFromDB, getStoredCart, clearTheCart } from '../utility/fakeDB';
 // import useFakeDatabase from '../hooks/useFakeDatabase';
 
@@ -12,9 +13,23 @@ const AppContext = ({children, data, setData, cart, setCart}) => {
     setCart(getStoredCart());
   },[]);
 
-  console.log('this is from app context', cart);
+  const {user, error, signInUsingGoogle, logOut} = useFirebase();
+
   return (
-    <Context.Provider value={{foods: data, cart, setCart, setDataToDB, deleteFromDB, getStoredCart, clearTheCart}}>
+    <Context.Provider value={{
+      foods: data,
+      cart,
+      setCart, 
+      setDataToDB, 
+      deleteFromDB, 
+      getStoredCart, 
+      clearTheCart,
+      user,
+      error,
+      signInUsingGoogle,
+      logOut
+      }}
+      >
       {children}
     </Context.Provider>
   )

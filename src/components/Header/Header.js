@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 
 const Header = () => {
-  const {cart} = useAppContext();
+  const {cart, user, logOut} = useAppContext();
   const [cartQuantity, setCartQuantity] = useState(0);
 
   useEffect(() => {
@@ -26,11 +26,13 @@ const Header = () => {
         <div className='flex gap-6 items-center'>
             <Link to='/home'><button className='text-xl text-red-700'><MdHome /></button></Link>
             <Link to='/cart'><button className='text-xl relative'><span className='absolute -top-3 text-red-600 right-0 text-xs font-semibold'>{cartQuantity}</span><BsCart2 /></button></Link>
-            <Link to='/login'><button className='text-sm font-semibold'>Login</button></Link>
-            <Link to='/signup'><button className='text-sm text-gray-50 px-5 py-2 bg-red-700 rounded-3xl'>Sign up</button></Link>
+            {
+              !user.email?[<Link to='/login'><button className='text-sm font-semibold'>Login</button></Link>,
+              <Link to='/signup'><button className='text-sm text-gray-50 px-5 py-2 bg-red-700 rounded-3xl'>Sign up</button></Link>]: <button onClick={logOut} className='text-sm font-semibold border-2 border-solid border-red-600 py-2 px-4 rounded'>Sign Out</button>
+            }
         </div>
     </div>
   )
 }
 
-export default Header
+export default Header;
