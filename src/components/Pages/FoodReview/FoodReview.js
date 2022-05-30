@@ -6,14 +6,13 @@ import {BsCart2} from 'react-icons/bs';
 const FoodReview = () => {
   const [food, setFood] = useState({});
   const [foodQuantity, setFoodQuantity] = useState(1);
-  const {foods} = useAppContext();
+  const {foods, setDataToDB, cart, setCart} = useAppContext();
   const location = useLocation();
   const {foodId} = useParams();
   useEffect(() => {
     if(location.pathname.includes('breakfast')) {
       if(foods.breakfast?.length) {
         const findedFood = foods.breakfast.find(item => item.id === foodId);
-        // console.log(findedFood);
         setFood(findedFood);
       } else {
         setFood({})
@@ -21,7 +20,6 @@ const FoodReview = () => {
     } else if (location.pathname.includes('lunch')) {
       if(foods.lunch?.length) {
         const findedFood = foods.lunch.find(item => item.id === foodId);
-        // console.log(findedFood);
         setFood(findedFood);
       } else {
         setFood({})
@@ -29,14 +27,12 @@ const FoodReview = () => {
     } else if (location.pathname.includes('dinner')) {
       if (foods.dinner?.length) {
         const findedFood = foods.dinner.find(item => item.id === foodId);
-        // console.log(findedFood);
         setFood(findedFood);
       } else {
         setFood({});
       }
     }
   }, [foods]);
-
 
   const minusFoodQuantity = () => {
     if(foodQuantity !== 1 && foodQuantity > 1) {
@@ -50,8 +46,29 @@ const FoodReview = () => {
     }
   }
 
+  const handleAddToCart = (food) => {
+    let foodId = food.id;
+    let quantity = foodQuantity;
+    let sendFood = {};
+    sendFood["foodId"] = foodId;
+    sendFood['quantity'] = quantity;
+    let existCart = cart || {};
+    if(existCart[foodId]) {
+        let newCount = existCart[foodId] + quantity;
+        existCart[foodId] = newCount;
+        setCart(existCart);
+    } else {
+      existCart[foodId] = quantity;
+      setCart({...cart, ...existCart});
+    }
+    setDataToDB(sendFood);
+  }
 
-  // console.log(foods);
+  console.log(cart);
+
+
+
+
   return (
     <div className='max-w-screen-2xl m-auto flex justify-center items-center gap-14 p-10 flex-wrap'>
       <div className='max-w-md'>
@@ -65,7 +82,7 @@ const FoodReview = () => {
             <button onClick={plusFoodQuantity} className='text-3xl p-3'>+</button>
           </div>
         </div>
-        <button className='bg-red-700 text-white px-6 py-3 text-xl flex items-center rounded-[30px]'>
+        <button onClick={() => handleAddToCart(food||{})} className='bg-red-700 text-white px-6 py-3 text-xl flex items-center rounded-[30px]'>
           <BsCart2 className='inline mr-2'></BsCart2>
           <span>Add</span>
         </button>

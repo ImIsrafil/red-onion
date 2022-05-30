@@ -16,7 +16,7 @@ const Foods = () => {
     } else {
       setActive('breakfast');
     }
-  },[location])
+  },[location]);
 
   return (
     <div className='max-w-screen-2xl m-auto p-10 min-h-screen'>
