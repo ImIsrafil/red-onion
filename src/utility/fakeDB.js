@@ -7,7 +7,7 @@ function setDataToDB(clientCart) {
   } else {
     shopping_cart = JSON.parse(exists);
     if (shopping_cart[id]) {
-      let newCount = shopping_cart[id] + clientCart.quantity;
+      let newCount = clientCart.quantity;
       shopping_cart[id] = newCount;
     } else {
       shopping_cart[id] = clientCart.quantity;
