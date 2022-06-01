@@ -45,7 +45,7 @@ const App = () => {
           ></Route>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<Outletor />}>
+          <Route path="/" element={<Outletor />}>
             <Route path="cart" element={<Cart />} />
           </Route>
           <Route path="*" element={<NotFound />} />

@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useAppContext from "../../hooks/useAppContext";
 
 const CartItem = ({item}) => {
 
-  const {img, name, price, quantity} = item;
+  const {img, name, price, quantity, id} = item;
+  const [itemQuantity, setItemQuantity] = useState(0);
+  const {setDataToDB, setCart, getStoredCart} = useAppContext();
+
+  useEffect(() => {
+    setItemQuantity(quantity);
+  }, []);
+
+  const handleMinusQuantity = () => {
+    if(itemQuantity > 1) {
+      let qt = itemQuantity - 1;
+      setItemQuantity(itemQuantity - 1);
+      let sendCartItem = {}
+      sendCartItem["foodId"] = id;
+      sendCartItem["quantity"] = qt;
+      setDataToDB(sendCartItem);
+      setCart(getStoredCart());
+    }
+    
+  }
+
+  const handlePlusQuantity = () => {
+    if(itemQuantity < 20) {
+      let qt = itemQuantity + 1
+      setItemQuantity(itemQuantity + 1);
+      let sendCartItem = {}
+      sendCartItem["foodId"] = id;
+      sendCartItem["quantity"] = qt;
+      setDataToDB(sendCartItem);
+      setCart(getStoredCart());
+    }
+    
+  }
 
   return (
     <div className="flex items-center mt-4">
@@ -19,9 +52,9 @@ const CartItem = ({item}) => {
         <p className="text-sm text-gray-500 leading-4">Delivery Free</p>
       </div>
       <div className="">
-        <button className="px-3 py-2 font-bold">-</button>
-        <span className="px-3 py-2 font-bold">{quantity}</span>
-        <button className="px-3 py-2 font-bold">+</button>
+        <button onClick={handleMinusQuantity} className="px-3 py-2 font-bold">-</button>
+        <span className="px-3 py-2 font-bold">{itemQuantity}</span>
+        <button onClick={handlePlusQuantity} className="px-3 py-2 font-bold">+</button>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ const FoodReview = () => {
         setFood({});
       }
     }
-  }, [foods]);
+  }, [foods, location, foodId]);
 
   const minusFoodQuantity = () => {
     if (foodQuantity !== 1 && foodQuantity > 1) {

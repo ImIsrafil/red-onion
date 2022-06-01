@@ -4,7 +4,7 @@ import CartItem from './CartItem';
 
 const CartItems = () => {
   const [cartItems, setCartItems] = useState([]);
-  const {cart, foods} = useAppContext()
+  const {cart, foods} = useAppContext();
 
   useEffect(() => {
     // let itemsKeysArray = [];
@@ -19,7 +19,7 @@ const CartItems = () => {
       }
     }
     setCartItems(findedCartItems);
-    console.log(findedCartItems);
+    // console.log(findedCartItems);
   },[cart, foods]);
 
   return (
