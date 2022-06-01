@@ -12,6 +12,8 @@ import NotFound from "./components/Pages/NotFound/NotFound";
 import Header from "./components/Header/Header";
 import SignUp from "./components/Pages/SignUp/SignUp";
 import Login from "./components/Pages/Login/Login";
+import Cart from "./components/Pages/Cart/Cart";
+import Outletor from "./components/Outletor/Outletor";
 
 const App = () => {
   const [data, setData] = useState({});
@@ -43,6 +45,9 @@ const App = () => {
           ></Route>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Outletor />}>
+            <Route path="cart" element={<Cart />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

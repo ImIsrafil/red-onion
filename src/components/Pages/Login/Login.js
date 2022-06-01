@@ -42,8 +42,8 @@ const Login = () => {
           </div>
           <p className="text-center text-gray-500 mt-5">Login with</p>
           <div className="flex justify-center gap-5 py-5">
-            <button onClick={signInUsingGoogle}>
-              <img className="w-[30px]" src={GoogleIcon} alt="" />
+            <button>
+              <img onClick={signInUsingGoogle} className="w-[30px]" src={GoogleIcon} alt="" />
             </button>
             <button>
               <img className="w-[30px]" src={FacebookIcon} alt="" />

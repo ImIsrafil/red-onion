@@ -6,9 +6,11 @@ import { BsCart2 } from "react-icons/bs";
 const FoodReview = () => {
   const [food, setFood] = useState({});
   const [foodQuantity, setFoodQuantity] = useState(1);
-  const { foods, setDataToDB, cart, setCart } = useAppContext();
+  const { foods, setDataToDB, setCart, getStoredCart } = useAppContext();
   const location = useLocation();
   const { foodId } = useParams();
+
+
   useEffect(() => {
     if (location.pathname.includes("breakfast")) {
       if (foods.breakfast?.length) {
@@ -52,19 +54,11 @@ const FoodReview = () => {
     let sendFood = {};
     sendFood["foodId"] = foodId;
     sendFood["quantity"] = quantity;
-    let existCart = cart || {};
-    if (existCart[foodId]) {
-      let newCount = existCart[foodId] + quantity;
-      existCart[foodId] = newCount;
-      setCart(existCart);
-    } else {
-      existCart[foodId] = quantity;
-      setCart({ ...cart, ...existCart });
-    }
-    setDataToDB(sendFood);
-  };
 
-  console.log(cart);
+    // setting data to cart
+    setDataToDB(sendFood);
+    setCart(getStoredCart());
+  };
 
   return (
     <div className="max-w-screen-2xl m-auto flex justify-center items-center gap-14 p-10 flex-wrap">

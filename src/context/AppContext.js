@@ -6,19 +6,19 @@ import {
   getStoredCart,
   clearTheCart,
 } from "../utility/fakeDB";
-// import useFakeDatabase from '../hooks/useFakeDatabase';
+
 
 export const Context = createContext({});
 
 const AppContext = ({ children, data, setData, cart, setCart }) => {
+  const { user, error, signInUsingGoogle, logOut } = useFirebase();
   useEffect(() => {
     fetch("http://localhost:3000/RedOnionData.json")
       .then((res) => res.json())
       .then((data) => setData(data));
-    setCart(getStoredCart());
+      setCart(getStoredCart());
   }, []);
 
-  const { user, error, signInUsingGoogle, logOut } = useFirebase();
 
   return (
     <Context.Provider

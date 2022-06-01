@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import useAppContext from "../../hooks/useAppContext";
 
 const Header = () => {
-  const { cart, user, logOut } = useAppContext();
+  const { cart, user, logOut} = useAppContext();
   const [cartQuantity, setCartQuantity] = useState(0);
 
   useEffect(() => {
@@ -38,16 +38,16 @@ const Header = () => {
           </button>
         </Link>
         {!user.email ? (
-          [
+          <>
             <Link to="/login">
               <button className="text-sm font-semibold">Login</button>
-            </Link>,
+            </Link>
             <Link to="/signup">
               <button className="text-sm text-gray-50 px-5 py-2 bg-red-700 rounded-3xl">
                 Sign up
               </button>
-            </Link>,
-          ]
+            </Link>
+            </>
         ) : (
           <button
             onClick={logOut}

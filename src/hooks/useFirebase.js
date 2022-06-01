@@ -5,7 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import initializeAuthentication from "../Firebase/Firebase.init";
 
 const useFirebase = () => {
@@ -24,13 +24,18 @@ const useFirebase = () => {
       .catch((err) => setError(err));
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser({});
-    }
-  });
+  useEffect(() => {
+    const unsubscribed = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser({});
+      }
+    });
+
+    return () => unsubscribed;
+
+  }, [])
 
   const logOut = () => {
     signOut(auth)
