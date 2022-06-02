@@ -14,6 +14,7 @@ import SignUp from "./components/Pages/SignUp/SignUp";
 import Login from "./components/Pages/Login/Login";
 import Cart from "./components/Pages/Cart/Cart";
 import Outletor from "./components/Outletor/Outletor";
+import Inventory from "./components/Pages/Inventory/Inventory";
 
 const App = () => {
   const [data, setData] = useState({});
@@ -26,6 +27,9 @@ const App = () => {
         <Routes>
           <Route path={"/"} element={<Home />}>
             <Route path="/" element={<Breakfast />} />
+            <Route path="breakfast" element={<Breakfast />} />
+            <Route path="lunch" element={<Lunch />} />
+            <Route path="dinner" element={<Dinner />} />
             <Route path="/home" element={<Breakfast />} />
             <Route path="/home/breakfast" element={<Breakfast />} />
             <Route path="/home/lunch" element={<Lunch />} />
@@ -47,6 +51,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Outletor />}>
             <Route path="cart" element={<Cart />} />
+            <Route path="inventory" element={<Inventory />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

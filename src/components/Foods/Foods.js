@@ -20,7 +20,7 @@ const Foods = () => {
 
   return (
     <div className="max-w-screen-2xl m-auto p-10 min-h-screen">
-      <div className="flex justify-center gap-6 mb-12">
+      <div className="flex justify-center gap-6 mb-16">
         <Link to="/home/breakfast">
           <button
             onClick={() => setActive("breakfast")}

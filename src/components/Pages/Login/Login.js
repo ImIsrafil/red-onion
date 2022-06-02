@@ -5,11 +5,24 @@ import GoogleIcon from "../../../images/icons/GoogleLogo.png";
 import FacebookIcon from "../../../images/icons/FacebookLogo.webp";
 import TwitterIcon from "../../../images/icons/twitter.png";
 import useAppContext from "../../../hooks/useAppContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { signInUsingGoogle, user } = useAppContext();
+  const { signInUsingGoogle, setIsLoading} = useAppContext();
 
-  console.log(user);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const uri = location.state? location.state.from : "/home";
+
+  const handleSignInWithGoogle = () => {
+    signInUsingGoogle()
+    .then((result) => {
+    })
+    .finally(() => {
+      setIsLoading(false);
+      navigate(uri);
+    })
+  }
 
   return (
     <div className="max-w-screen-2xl m-auto background-login h-[100vh] py-12">
@@ -43,7 +56,7 @@ const Login = () => {
           <p className="text-center text-gray-500 mt-5">Login with</p>
           <div className="flex justify-center gap-5 py-5">
             <button>
-              <img onClick={signInUsingGoogle} className="w-[30px]" src={GoogleIcon} alt="" />
+              <img onClick={handleSignInWithGoogle} className="w-[30px]" src={GoogleIcon} alt="" />
             </button>
             <button>
               <img className="w-[30px]" src={FacebookIcon} alt="" />

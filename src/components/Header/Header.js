@@ -49,12 +49,15 @@ const Header = () => {
             </Link>
             </>
         ) : (
-          <button
+          <>
+            <h1>{user.displayName}</h1>
+            <button
             onClick={logOut}
             className="text-sm font-semibold border-2 border-solid border-red-600 py-2 px-4 rounded"
           >
             Sign Out
           </button>
+          </>
         )}
       </div>
     </div>

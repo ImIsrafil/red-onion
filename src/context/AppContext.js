@@ -11,7 +11,7 @@ import {
 export const Context = createContext({});
 
 const AppContext = ({ children, data, setData, cart, setCart }) => {
-  const { user, error, signInUsingGoogle, logOut } = useFirebase();
+  const { user, error, signInUsingGoogle, logOut, isLoading, setIsLoading } = useFirebase();
   useEffect(() => {
     fetch("http://localhost:3000/RedOnionData.json")
       .then((res) => res.json())
@@ -23,6 +23,7 @@ const AppContext = ({ children, data, setData, cart, setCart }) => {
   return (
     <Context.Provider
       value={{
+        // App Data
         foods: data,
         cart,
         setCart,
@@ -30,6 +31,9 @@ const AppContext = ({ children, data, setData, cart, setCart }) => {
         deleteFromDB,
         getStoredCart,
         clearTheCart,
+        // Handle Authetication
+        isLoading,
+        setIsLoading,
         user,
         error,
         signInUsingGoogle,

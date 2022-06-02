@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import useAppContext from '../../hooks/useAppContext';
 import CartItem from './CartItem';
 
-const CartItems = () => {
+const CartItems = ({setTotalPrice}) => {
   const [cartItems, setCartItems] = useState([]);
   const {cart, foods} = useAppContext();
 
   useEffect(() => {
-    // let itemsKeysArray = [];
     let breakfastLunchDinner = [...foods.breakfast, ...foods.lunch, ...foods.dinner];
     const findedCartItems = [];
     for(let key in cart) {
@@ -19,7 +18,11 @@ const CartItems = () => {
       }
     }
     setCartItems(findedCartItems);
-    // console.log(findedCartItems);
+    let totalPrice = findedCartItems.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+    setTotalPrice(totalPrice);
+
   },[cart, foods]);
 
   return (
